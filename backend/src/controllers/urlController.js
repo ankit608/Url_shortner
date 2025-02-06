@@ -4,6 +4,7 @@ import Click from '../models/click.js'
 import {redisClient} from '../config/redis.js'
 import { error } from 'console'
 import exp from 'constants'
+import { json } from 'body-parser'
 
 export const shortenUrl = async (req,res) =>{
     try{
@@ -81,8 +82,25 @@ export const getUrlAnalytics = async (req,res) =>{
 export const getTopicAnalytics = async (req,res)=>{
     try{
         
+        const {topic} = req.params;
+        const urls = await Url.findAll({where:{topic}});
+
+        let totalClicks = 0;
+        let uniqueUserSet = new Set()
+        let clicksByDate = {};
+
+        for(const url of urls){
+            const clicks = await Click.findAll({where:{urlId: url.id}});
+            totalClicks+= clicks.length;
+            clicks.forEach(c=> uniqueUserSet.add(c.ipAddress))
+            clicks.forEach(c=>{
+                const date = c.clickedAt.toISOString.split('T')[0];
+                clicksByDate[date] = (clicksByDate[date]||0)+1;
+            })
+        }
+        res.json({totalClicks,uniqueUser:uniqueUserSet.size, clicksByDate})
 
     }catch(error){
-
+           res.status(500),json({message:'Error retrieving topic analytics'})
     }
 }
