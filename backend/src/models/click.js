@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../config/db";
-import Url from "./url";
+import { sequelize } from "../config/db.js";
+import Url from "./url.js";
 
 const Click = sequelize.define('Click', {
     id:{type:DataTypes.UUID, defaultValue:DataTypes.UUIDV4, primaryKey:true},
