@@ -2,6 +2,8 @@ import {nanoid} from 'nanoid'
 import Url from '../models/url.js'
 import Click from '../models/click.js'
 import {redisClient} from '../config/redis.js'
+import { error } from 'console'
+import exp from 'constants'
 
 export const shortenUrl = async (req,res) =>{
     try{
@@ -57,9 +59,30 @@ export const getUrlAnalytics = async (req,res) =>{
     try{
 
         const {alias} = req.params;
-       const clicks = await Click.findAll()
+       const clicks = await Click.findAll({where:{urlId:alias}})
+
+       const totalClicks = clicks.length;
+       const unique_user = new Set(clicks.map((c)=>{c.ipAddress})).size
+       const clicksByDate = clicks.reduce((acc,click)=>{
+        const date = click.clickedAt.toISOString().split('T')[0];
+        acc[date] = (acc[date]|| 0)+1;
+        return acc;
+       },{});
+
+       res.json({totalClicks,unique_user,clicksByDate})
 
     }catch(Error){
+              
+        res.status(500).json({message:'Error retrieving analytics'})
+    }
+}
+
+
+export const getTopicAnalytics = async (req,res)=>{
+    try{
+        
+
+    }catch(error){
 
     }
 }
