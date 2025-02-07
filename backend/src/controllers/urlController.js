@@ -2,14 +2,18 @@ import {nanoid} from 'nanoid'
 import Url from '../models/url.js'
 import Click from '../models/click.js'
 import {redisClient} from '../config/redis.js'
+import session from "express-session";
+import User from '../models/user.js'
 
-import { json } from 'body-parser'
+//import { json } from 'body-parser'
+
 
 export const shortenUrl = async (req,res) =>{
     try{
       
         const {longUrl,customAlias,topic} = req.body;
-        const userId = req.user.id;
+        console.log(req.body)
+        const userId = req.body.user.id;
 
         let shortUrl = customAlias||nanoid(8);
         const existingUrl = await Url.findOne({where : {shortUrl}});
@@ -23,6 +27,7 @@ export const shortenUrl = async (req,res) =>{
         res.status(201).json({shortUrl,createdAt: newUrl.createdAt})
 
     }catch(error){
+        console.log(error)
           res.status(500).json({message:'Error in creating the short url'})
     }
 }
