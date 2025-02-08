@@ -11,11 +11,14 @@ import jwt from "jsonwebtoken";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import User from './src/models/user.js'
 import { authenticateUser } from './src/middlewares/authMiddleware.js'
+import SwaggerDocs from './src/config/swagger.js'
+import swagger from './src/config/swagger.js'
 
 dotenv.config()
 
 const app = express()
 app.use(express.json())
+swagger(app)
 
 app.use(cors({
     origin: "http://localhost:3000", // Frontend origin
@@ -30,7 +33,7 @@ app.use(
         cookie: { secure: false }, // Set `true` in production with HTTPS
     })
 );
-
+  
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
