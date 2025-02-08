@@ -6,16 +6,22 @@ import session from 'express-session'
 import passport from 'passport'
 import  {initializeDB} from "./src/config/db.js"
 import router from './src/routes/route.js'
+import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import User from './src/models/user.js'
+import { authenticateUser } from './src/middlewares/authMiddleware.js'
 
 dotenv.config()
 
 const app = express()
 app.use(express.json())
 
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:3000", // Frontend origin
+    credentials: true, // Allow credentials (cookies, authorization headers)
+}))
+app.use(cookieParser())
 app.use(
     session({
         secret: process.env.SESSION_SECRET || "secretKey",
@@ -33,7 +39,7 @@ passport.use(new GoogleStrategy({
       try{
            
         let user = await User.findOne({ where: { googleId: profile.id } });
-              console.log(user,"asdfas")
+              
                 if (!user) {
                     user = await User.create({
                         googleId: profile.id,
@@ -76,12 +82,18 @@ app.get("/auth/google/callback",
         res.redirect(process.env.CLIENT_URL);
     }
 );
+app.get("/logout", (req, res) => {
+    res.clearCookie("token");
+    res.json({ message: "Logged out successfully" });
+});
 initializeDB().then(()=>{
     console.log("Database initilization completed")
 }).catch((err)=>{
     console.error("❌ Database initialization error:", err);
 })
-
+app.get("/dashboard", authenticateUser , (req, res) => {
+    res.json({ message: "Welcome to Dashboard", user: req.user });
+});
 app.use(router)
 
 app.listen(8080,()=>{
