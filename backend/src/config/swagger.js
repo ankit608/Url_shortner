@@ -2,11 +2,12 @@ import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from 'swagger-ui-express'
 
 
+
 const swaggerOptions = {
-   defination:{
+    swaggerDefinition:{
     openapi : '3.0.0',
     info:{
-        title: 'Custon URL Shortnener API',
+        title: 'Custom URL Shortnener API',
         version: '1.0.0',
         description:'API documentaion for the Custom Url Shortner with analytic and authentication'
     },
@@ -21,7 +22,7 @@ const swaggerOptions = {
    },
 
   
-   apis: ['./routes/*.js'],
+   apis: ["./src/routes/route.js"],
 
    
 };
