@@ -17,11 +17,11 @@ app.use(express.json())
 swagger(app)
 app.use(morgan("dev"))
 
-app.use(cors({
-    origin: "http://localhost:3000", 
-    credentials: true, 
-}))
+app.use(cors())
 app.use(cookieParser())
+app.get("/",(req,res)=>{
+    res.status(200).json({messsgae:"all is good"})
+})
 
 initializeDB().then(()=>{
     console.log("Database initilization completed")
@@ -38,7 +38,7 @@ router.get("/dashboard" ,authenticateUser, (req,res)=>{
 })
 app.use(router)
 
-app.listen(8081,()=>{
+app.listen(8080,()=>{
     console.log(`server is connected to the 8080`)
 })
 
@@ -47,3 +47,7 @@ app.listen(8081,()=>{
 
 
 
+/*{
+    origin: "http://localhost:3000", 
+    credentials: true, 
+} */

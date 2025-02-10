@@ -133,7 +133,7 @@ router.get("/api/shorten/:alias", redirectUrl);
  *       500:
  *         description: Server error
  */
-router.get("/api/analytics/overall", authenticateUser, getOverallAnalytics);
+router.get("/api/analytics/overall", limiter ,authenticateUser, getOverallAnalytics);
 /**
  * @swagger
  * /api/analytics/{alias}:
@@ -185,7 +185,7 @@ router.get("/api/analytics/overall", authenticateUser, getOverallAnalytics);
  */
 
 
-router.get("/api/analytics/:alias",getUrlAnalytics)
+router.get("/api/analytics/:alias",limiter,getUrlAnalytics)
 /**
  * @swagger
  * /api/analytics/topic/{topic}:
@@ -207,7 +207,7 @@ router.get("/api/analytics/:alias",getUrlAnalytics)
  *       500:
  *         description: Server error
  */
-router.get("/api/analytics/topic/:topic", authenticateUser, getTopicAnalytics);
+router.get("/api/analytics/topic/:topic", limiter,authenticateUser, getTopicAnalytics);
 
 
 

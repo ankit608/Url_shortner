@@ -3,10 +3,8 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-export const sequelize = new Sequelize("Url_shortner", "postgres","urlshort",{
-    host: "localhost",
+export const sequelize = new Sequelize(process.env. DATABASE_URL,{
     dialect:'postgres',
-    port: 5432,
     logging: false,
    
 })
