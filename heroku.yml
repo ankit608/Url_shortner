@@ -1,0 +1,15 @@
+build:
+  docker:
+    web:
+      dockerfile: Dockerfile
+  config:
+    NODE_ENV: production
+    DATABASE_URL: $DATABASE_URL
+    REDIS_URL: $REDIS_URL
+    GOOGLE_CLIENT_ID: $GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_SECRET: $GOOGLE_CLIENT_SECRET
+    JWT_SECRET: $JWT_SECRET
+    CLIENT_URL: $CLIENT_URL
+
+run:
+  web: node index.js
