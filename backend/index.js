@@ -26,19 +26,19 @@ app.use(cookieParser())
 initializeDB().then(()=>{
     console.log("Database initilization completed")
 }).catch((err)=>{
-    console.error("❌ Database initialization error:", err);
+    console.error(" Database initialization error:", err);
 })
-app.get('/google', (req, res) => {
+/*app.get('/google', (req, res) => {
     
     res.redirect('https://www.google.com');
-});
+});*/
 
 router.get("/dashboard" ,authenticateUser, (req,res)=>{
     res.json({messsgae:"welcome to the dashboard", user:req.user})
 })
 app.use(router)
 
-app.listen(8080,()=>{
+app.listen(8081,()=>{
     console.log(`server is connected to the 8080`)
 })
 
