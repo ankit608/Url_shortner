@@ -63,10 +63,10 @@ export const redirectUrl = async (req,res) =>{
             await redisClient.set(alias,longUrl)
         }
          console.log(longUrl,"longurl")
-        res.redirect(longUrl);
+        
         const urlEntry = await Url.findOne({where: {shortUrl: alias}})
         await Click.create({urlId:urlEntry.id, userAgent: req.headers['user-agent'], ipAddress: req.ip, osType:deviceInfo.os.name, deviceType:deviceInfo.device.name});
-    
+        res.redirect(longUrl);
 
     }catch(error){
           console.log(error)
@@ -114,7 +114,7 @@ export const getUrlAnalytics = async (req,res) =>{
         return acc;
        },{});
 
-       res.json({totalClicks,unique_user,clicksByDate,uniqueOsCounts,uniqueDeviceCounts})
+       res.status(200).json({totalClicks,unique_user,clicksByDate,uniqueOsCounts,uniqueDeviceCounts})
 
     }catch(Error){
               console.log(Error)
