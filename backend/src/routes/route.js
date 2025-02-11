@@ -95,7 +95,7 @@ router.get("/logout",logout)
  *       500:
  *         description: Server error
  */
-router.post("/api/shorten", limiter,authenticateUser, shortenUrl);
+router.post("/api/shorten",limiter,authenticateUser, shortenUrl);
 
 /**
  * @swagger

@@ -16,6 +16,7 @@ const app = express()
 app.use(express.json())
 swagger(app)
 app.use(morgan("dev"))
+app.set('trust proxy', 1);
 
 app.use(cors({
     origin:"https://url-shortner-rho-three.vercel.app",
