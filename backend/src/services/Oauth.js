@@ -49,8 +49,12 @@ const generateToken = (user) => {
  export const sendcookie =   (req, res) => {
         const token = generateToken(req.user);
         res.cookie("token", token, {
-            httpOnly: true,
-            secure: false, // Set to true in production with HTTPS
+           
+               httpOnly: true,
+                secure: true,  // Required for HTTPS
+                sameSite: "None",  // Required for cross-origin cookies
+          
+            
             maxAge: 3600000 // 1 hour
         });
         res.redirect(process.env.CLIENT_URL);
