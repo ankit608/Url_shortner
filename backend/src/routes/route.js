@@ -1,7 +1,7 @@
 import express from 'express';
 
 import{shortenUrl,redirectUrl,getUrlAnalytics,getTopicAnalytics,getOverallAnalytics} from '../controllers/urlController.js'
-import {authenticateUser} from '../middlewares/authMiddleware.js'
+import {authenticateUser} from '../middlewares/authmiddleware.js'
 import { limiter } from '../utils/ratelimit.js';
 import { PassAuth,passAuthCallback,logout,sendcookie } from '../services/Oauth.js';
 

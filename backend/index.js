@@ -8,7 +8,7 @@ import  {initializeDB} from "./src/config/db.js"
 import router from './src/routes/route.js'
 import cookieParser from "cookie-parser";
 import swagger from './src/config/swagger.js'
-import { authenticateUser } from './src/middlewares/authMiddleware.js'
+import { authenticateUser } from './src/middlewares/authmiddleware.js'
 
 dotenv.config()
 
