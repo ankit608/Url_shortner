@@ -18,7 +18,7 @@ swagger(app)
 app.use(morgan("dev"))
 
 app.use(cors({
-    origin:"http://localhost:3000",
+    origin:"https://67ab4944ddcf770cb03cd412--guileless-zuccutto-38d4b7.netlify.app",
 
     credentials:true
 }))
