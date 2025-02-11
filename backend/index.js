@@ -19,7 +19,7 @@ app.use(morgan("dev"))
 
 app.use(cors({
     origin:(origin,callback)=>{
-        callback(null,origin||"*")
+        callback(null, origin || "*")
     },
 
     credentials:true
