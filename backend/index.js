@@ -17,7 +17,13 @@ app.use(express.json())
 swagger(app)
 app.use(morgan("dev"))
 
-app.use(cors())
+app.use(cors({
+    origin:(origin,callback)=>{
+        callback(null,origin||"*")
+    },
+
+    credentials:true
+}))
 app.use(cookieParser())
 app.get("/",(req,res)=>{
     res.status(200).json({messsgae:"all is good"})
