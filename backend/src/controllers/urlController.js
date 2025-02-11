@@ -62,6 +62,7 @@ export const redirectUrl = async (req,res) =>{
             
             await redisClient.set(alias,longUrl)
         }
+         console.log(longUrl,"longurl")
         res.redirect(longUrl);
         const urlEntry = await Url.findOne({where: {shortUrl: alias}})
         await Click.create({urlId:urlEntry.id, userAgent: req.headers['user-agent'], ipAddress: req.ip, osType:deviceInfo.os.name, deviceType:deviceInfo.device.name});
