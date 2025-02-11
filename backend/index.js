@@ -18,9 +18,7 @@ swagger(app)
 app.use(morgan("dev"))
 
 app.use(cors({
-    origin:(origin,callback)=>{
-        callback(null, origin || "*")
-    },
+    origin: "http://localhost:3000",
 
     credentials:true
 }))
