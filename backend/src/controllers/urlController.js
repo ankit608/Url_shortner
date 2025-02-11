@@ -82,7 +82,7 @@ export const getUrlAnalytics = async (req,res) =>{
         const {alias} = req.params;
        
         const urlEntry = await Url.findOne({where: {shortUrl: alias}})
-       
+        if(!urlEntry) return res.status(500).json({message:"Short Url not found"})
        const clicks = await Click.findAll({where:{urlId:urlEntry.id}})
           console.log(clicks,"hkjhkj")
        const totalClicks = clicks.length;
@@ -107,14 +107,14 @@ export const getUrlAnalytics = async (req,res) =>{
       });
       console.log(uniqueDeviceCounts)
 
-       const unique_user = new Set(clicks.map((c)=>{c.ipAddress})).size
+       const unique_user = new Set(clicks.map(c => c.ipAddress)).size
        const clicksByDate = clicks.reduce((acc,click)=>{
         const date = click.clickedAt.toISOString().split('T')[0];
         acc[date] = (acc[date]|| 0)+1;
         return acc;
        },{});
 
-       res.status(200).json({totalClicks,unique_user,clicksByDate,uniqueOsCounts,uniqueDeviceCounts})
+      return res.status(200).json({totalClicks,unique_user,clicksByDate,uniqueOsCounts,uniqueDeviceCounts})
 
     }catch(Error){
               console.log(Error)
