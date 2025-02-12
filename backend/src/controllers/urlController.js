@@ -115,7 +115,8 @@ export const getUrlAnalytics = async (req,res) =>{
        },{});
        console.log('Sending response:', { unique_user, clicksByDate });
 
-      return res.status(200).json({unique_user,clicksByDate})
+      return res.status(200).json({unique_user,clicksByDate,uniqueOsCounts,uniqueDeviceCounts})
+      console.log('Sending response:fdsf', { unique_user, clicksByDate });
 
     }catch(Error){
               console.log(Error)
