@@ -14,7 +14,7 @@ const swaggerOptions = {
    
     servers: [
         {
-            url: 'http://localhost:8080',
+            url: 'https://urlshortner-production-a2c0.up.railway.app/',
             description: 'Local Server'
         }
     ],
