@@ -20,6 +20,7 @@ This is a scalable **Custom URL Shortener API** built with **Node.js, Express, S
 - **Deployment**: Railway, Vercel, Netlify
 - **Frontend**: [Live Frontend URL](https://url-shortner-rho-three.vercel.app)
 - **Backend**: [Live Backend URL](https://urlshortner-production-a2c0.up.railway.app)
+- **Api-Documentation**:https://urlshortner-production-a2c0.up.railway.app/api-docs/
 
 ## 📂 Project Structure
 ```
