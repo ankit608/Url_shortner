@@ -12,7 +12,7 @@ import { authenticateUser } from './src/middlewares/authmiddleware.js'
 
 dotenv.config()
 
-const app = express()
+export const app = express()
 app.use(express.json())
 swagger(app)
 app.use(morgan("dev"))
