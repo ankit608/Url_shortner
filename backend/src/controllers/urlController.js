@@ -113,13 +113,11 @@ export const getUrlAnalytics = async (req,res) =>{
         acc[date] = (acc[date]|| 0)+1;
         return acc;
        },{});
-       res.status(200).json({ unique_user, clicksByDate,uniqueOsCounts});
-
-      //return res.status(200).json({unique_user,clicksByDate,uniqueOsCounts,uniqueDeviceCounts})
-      console.log('Sending response:fdsf', { unique_user, clicksByDate });
+      
+      return res.status(200).json({totalClicks,unique_user,clicksByDate,uniqueOsCounts,uniqueDeviceCounts})
 
     }catch(Error){
-         console.log(Error)
+              console.log(Error)
         return res.status(500).json({message:'Error retrieving analytics'})
     }
 }
